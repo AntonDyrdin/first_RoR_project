@@ -7,5 +7,6 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    system("rails db:seed")
   end
 end

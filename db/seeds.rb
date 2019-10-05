@@ -8,19 +8,13 @@
 data = HashWithIndifferentAccess.new(YAML::load_file(File.join(Rails.root, 'test', 'seeds.yml')))
 
 data[:projects].each do |projectRec|
-	print "__project__"
 	puts projectRec
 	p = Project.new(title: projectRec[:title])
 	p = Project.create(:title => projectRec[:title])
 	projectRec[:todos].each do |todoRec|
-		print "__todo__"
 		puts todoRec
 		todo=Todo.new(text: todoRec[:text],isCompleted: todoRec[:isCompleted], project_id: p.id)
-#		todo.save!
-		print "__todo.save!__"
 		p.todos.push(todo)
-		print "__todo.Add!__"
 	end
 	p.save!
-puts "AAAAAAAAA" 
 end
