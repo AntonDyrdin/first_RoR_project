@@ -7,6 +7,15 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    system("rails db:seed")
+  	todo_id=params[:todo_id]
+  	isCompleted=params[:isCompleted]
+    puts "todo_"+todo_id+": "+isCompleted
+
+    todo = Todo.find(todo_id)
+	todo.update(:isCompleted=> isCompleted)
+  end
+
+  def seed
+  	system("rails db:seed")
   end
 end

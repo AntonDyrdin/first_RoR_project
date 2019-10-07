@@ -1,11 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <script type="text/javascript" src="jquery-3.4.1.js"></script>
 
-<h1>Задачи</h1>
+  <title>Задачи</title>
+</head>
+<body>
+ <div class="heading">Задачи<img class="plus"src="addtodoicon.png"	align="right"></div>
 <% @projects.each do |project| %>
-	<strong ><%= project.title %></strong>
-	<br>
-	<br>
-	<% project.todos.each do |todo| %>
-		<li><%= todo.text %></li>
-	<% end %>
-<br>
-<% end %>
+<div class="project_box">
+	<table class="project_table">
+		<tr><th><strong><%= project.title %></strong></th><th></th></tr>
+		
+		<% project.todos.each do |todo| %>
+			<% if todo.isCompleted=="true" %>
+				<tr><td>
+					<div style="height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;background-color: #54AEDA;" id="check_box<%= todo.id %>"
+					data-todoid="<%= todo.id %>" onclick="done(id);"><img class="done" src="done.png" >
+					</div>
+				</td><td>
+					<div id="todo_text<%= todo.id %>"data-todoid="<%= todo.id %>" style="text-decoration: line-through" onclick="done(id);"><%= todo.text  %>
+					</div>	
+				</td></tr>
+			<% else %> 
+				<tr><td>
+					<div style="height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;" id="check_box<%= todo.id %>"
+					data-todoid="<%= todo.id %>" onclick="done(id);"><img class="done" src="done.png" >
+					</div>
+				</td><td>
+					<div id="todo_text<%= todo.id %>"data-todoid="<%= todo.id %>" onclick="done(id);"><%= todo.text %>
+					</div>	
+				</td></tr>
+			<% end %>
+		<% end %>
+	</table>
+</div>
+<% end %>  
+</body>
+</html>
+
+<script>
+  function done(id) {
+	var todo_id=$("#"+id).attr("data-todoid");
+
+  	if($("#check_box"+todo_id).attr("style")=="height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;background-color: #54AEDA;")
+  	{	
+  		$.ajax({
+  		  type: 'POST',
+  		  dataType : "json",
+    	  contentType: "application/json; charset=utf-8",
+          url: 'projects/update',
+          data:  "{\"todo_id\":\""+todo_id+"\",\"isCompleted\":\"false\"}"
+          });
+  		//убрать галочку
+		$("#check_box"+todo_id).attr("style","height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;");
+		//убрать зачёркивание
+  		$("#todo_text"+todo_id).attr("style","");
+  	}
+  	else
+  	{
+  		$.ajax({
+          type: 'POST',
+          dataType : "json",
+    	  contentType: "application/json; charset=utf-8",
+          url: 'projects/update',
+          data: "{\"todo_id\":\""+todo_id+"\",\"isCompleted\":\"true\"}"
+          });
+  		//поставить галочку
+  		$("#check_box"+todo_id).attr("style","height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;background-color: #54AEDA;");
+  		//зачеркнуть
+  		$("#todo_text"+todo_id).attr("style","text-decoration: line-through");
+  	}
+  }
+</script>
