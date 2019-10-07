@@ -3,7 +3,14 @@ class ProjectsController < ApplicationController
   	@projects = Project.all
   end
 
-  def create	
+  def create
+  	text=params[:text]
+  	poject=params[:project]
+    puts "new todo_"+text+" "+poject
+
+    projectActiveRecord = Project.where(:title => poject)[0]
+
+	Todo.create(text: text, isCompleted: "false", project_id: projectActiveRecord.id)	
   end
 
   def update

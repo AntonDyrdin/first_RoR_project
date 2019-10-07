@@ -1,76 +1,135 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <script type="text/javascript" src="jquery-3.4.1.js"></script>
+	<!doctype html>
+	<html lang="ru">
+	<head>
 
-  <title>Задачи</title>
-</head>
-<body>
- <div class="heading">Задачи<img class="plus"src="addtodoicon.png"	align="right"></div>
-<% @projects.each do |project| %>
-<div class="project_box">
-	<table class="project_table">
-		<tr><th><strong><%= project.title %></strong></th><th></th></tr>
-		
-		<% project.todos.each do |todo| %>
-			<% if todo.isCompleted=="true" %>
+		<meta charset="utf-8" />
+		<script type="text/javascript" src="jquery-3.4.1.js"></script>
+		<script src="jquery.arcticmodal-0.3.min.js"></script>
+		<link rel="stylesheet" href="jquery.arcticmodal-0.3.css">
+
+		<title>Задачи</title>
+
+	</head>
+	<body>
+		<div class="heading">Задачи<img class="plus"src="addtodoicon.png"	align="right" rel="create-overlay" onclick="plusOnClick();"></div>
+		<% @projects.each do |project| %>
+		<div class="project_box">
+			<table class="project_table">
+				<tr><th><strong><%= project.title %></strong></th><th></th></tr>
+
+				<% project.todos.each do |todo| %>
+				<% if todo.isCompleted=="true" %>
 				<tr><td>
 					<div style="height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;background-color: #54AEDA;" id="check_box<%= todo.id %>"
-					data-todoid="<%= todo.id %>" onclick="done(id);"><img class="done" src="done.png" >
+						data-todoid="<%= todo.id %>" onclick="done(id);"><img class="done" src="done.png" >
 					</div>
 				</td><td>
 					<div id="todo_text<%= todo.id %>"data-todoid="<%= todo.id %>" style="text-decoration: line-through" onclick="done(id);"><%= todo.text  %>
 					</div>	
 				</td></tr>
-			<% else %> 
+				<% else %> 
 				<tr><td>
 					<div style="height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;" id="check_box<%= todo.id %>"
-					data-todoid="<%= todo.id %>" onclick="done(id);"><img class="done" src="done.png" >
+						data-todoid="<%= todo.id %>" onclick="done(id);"><img class="done" src="done.png" >
 					</div>
 				</td><td>
 					<div id="todo_text<%= todo.id %>"data-todoid="<%= todo.id %>" onclick="done(id);"><%= todo.text %>
 					</div>	
 				</td></tr>
-			<% end %>
+				<% end %>
+				<% end %>
+			</table>
+		</div>
 		<% end %>
-	</table>
-</div>
-<% end %>  
+
+		<div style="display: none;">
+			<div class="box-modal" id="create-overlay"> 
+				<strong style="padding: 10px"> Новая задача </strong>
+				<input  class="todo_text" type="text" value="Название задачи...">
+
+				<select class="project_selector" style="" type="text" >
+					<option style="color: #B2B2B6;">Категория</option>
+					<% @projects.each do |project| %>
+					<option data-project_id="<%= project.id %>"><%= project.title %></option>
+					<% end %>	
+				</select>
+
+				<div class="box-modal_close arcticmodal-close" 
+				style="display: inline-block; height: 50px; width: 200px;margin: 10px; background-color: #9F9F9F;"> 
+				<strong  style="color: white; padding: 15px"> Отмена </strong>
+			</div>
+			<div class="OK" 
+			style="display: inline-block; height: 50px; width: 200px;margin: 10px; background-color: #54AEDA;"
+			onclick="OKOnClick();"> 
+			<strong style="color: white; padding: 15px"> OK </strong>
+		</div>
+	</div>
+</div> 
+
+
 </body>
 </html>
 
 <script>
-  function done(id) {
-	var todo_id=$("#"+id).attr("data-todoid");
+	$(document).ready(function(){
+		$(".todo_text").click(function(){
+			if($(".todo_text").val()=="Название задачи...")
+				$(".todo_text").attr("value","");
+		});
 
-  	if($("#check_box"+todo_id).attr("style")=="height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;background-color: #54AEDA;")
-  	{	
-  		$.ajax({
-  		  type: 'POST',
-  		  dataType : "json",
-    	  contentType: "application/json; charset=utf-8",
-          url: 'projects/update',
-          data:  "{\"todo_id\":\""+todo_id+"\",\"isCompleted\":\"false\"}"
-          });
-  		//убрать галочку
-		$("#check_box"+todo_id).attr("style","height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;");
+	});
+
+	function plusOnClick(){
+		$(function(){
+			$('#create-overlay').arcticmodal();
+		});
+	}
+
+
+	function OKOnClick(){
+		var text=$(".todo_text").val();
+		var project=$(".project_selector").val()
+		$.ajax({
+			type: 'POST',
+			dataType : "json",
+			contentType: "application/json; charset=utf-8",
+			url: 'projects/create',
+			data:  "{\"text\":\""+text+"\",\"project\":\""+project+"\"}"
+		});
+		$(".todo_text").attr("value","Название задачи...");
+		$('#create-overlay').arcticmodal('close');
+	}
+
+	function done(id) {
+		var todo_id=$("#"+id).attr("data-todoid");
+
+		if($("#check_box"+todo_id).attr("style")=="height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;background-color: #54AEDA;")
+		{	
+			$.ajax({
+				type: 'POST',
+				dataType : "json",
+				contentType: "application/json; charset=utf-8",
+				url: 'projects/update',
+				data:  "{\"todo_id\":\""+todo_id+"\",\"isCompleted\":\"false\"}"
+			});
+			//убрать галочку
+			$("#check_box"+todo_id).attr("style","height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;");
 		//убрать зачёркивание
-  		$("#todo_text"+todo_id).attr("style","");
-  	}
-  	else
-  	{
-  		$.ajax({
-          type: 'POST',
-          dataType : "json",
-    	  contentType: "application/json; charset=utf-8",
-          url: 'projects/update',
-          data: "{\"todo_id\":\""+todo_id+"\",\"isCompleted\":\"true\"}"
-          });
-  		//поставить галочку
-  		$("#check_box"+todo_id).attr("style","height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;background-color: #54AEDA;");
-  		//зачеркнуть
-  		$("#todo_text"+todo_id).attr("style","text-decoration: line-through");
-  	}
-  }
+		$("#todo_text"+todo_id).attr("style","");
+	}
+	else
+	{
+		$.ajax({
+			type: 'POST',
+			dataType : "json",
+			contentType: "application/json; charset=utf-8",
+			url: 'projects/update',
+			data: "{\"todo_id\":\""+todo_id+"\",\"isCompleted\":\"true\"}"
+		});
+			//поставить галочку
+			$("#check_box"+todo_id).attr("style","height: 30px;width: 30px;border: 1px solid #D2D2D2;margin: 20px;background-color: #54AEDA;");
+			//зачеркнуть
+			$("#todo_text"+todo_id).attr("style","text-decoration: line-through");
+		}
+	}
 </script>
