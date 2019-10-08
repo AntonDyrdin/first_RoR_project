@@ -16,7 +16,7 @@
 
 	strong{
 		text-transform: uppercase;
-		font-family: "OpenSans-Regular";
+		font-family: 'Open Sans', sans-serif;
 		display: block;
 	}
 
@@ -31,7 +31,7 @@
 		background-color: #54AEDA;
 		text-align:center;
 		font-size: 30px;
-		font-family: "OpenSans-Regular";
+		font-family: 'Open Sans', sans-serif;
 		padding: 30px;
 		margin-bottom: 30px;
 		display: block;
@@ -42,15 +42,14 @@
 		padding: 5px;
 	}
 	@font-face {
-		font-family: "OpenSans-Regular";
-		src: url("OpenSans-Regular.ttf") format("truetype");
+		font-family: 'Open Sans', sans-serif;
 		font-style: normal; 
 		font-weight: normal; 
 	} 
 
 	.project_box{
 		font-size: 20px;
-		font-family: "OpenSans-Regular";
+		font-family: 'Open Sans', sans-serif;
 		align-content: top;
 		float: left;
 		width: 500px;
@@ -101,7 +100,7 @@
 		border: 1px solid #B2B2B6;
 		color: #B2B2B6;
 	    font-size: 20px;
-		font-family: OpenSans-Regular;
+		font-family: 'Open Sans', sans-serif;
 	}
 	select{
 		display: inline-block;
@@ -112,11 +111,11 @@
 	    border: 1px solid #B2B2B6;
 		color: #B2B2B6;
 		font-size: 20px;
-		font-family: OpenSans-Regular;
+		font-family: 'Open Sans', sans-serif;
 	}
 
 	option {
 		color: #43495A;
 		font-size: 20px;
-		font-family: OpenSans-Regular;
+		font-family: 'Open Sans', sans-serif;
 	}
