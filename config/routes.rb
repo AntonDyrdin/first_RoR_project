@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   post 'projects/update'
 
   get 'api/projects'
+  get 'api/todos'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
