@@ -22,7 +22,9 @@ class ProjectsController < ApplicationController
 	todo.update(:isCompleted=> isCompleted)
   end
 
-  def seed
-  	system("rails db:seed")
+  def jsonarray
+    response.headers["Content-Type"] = "application/json"
+    response.content_type="application/json"
+    response.body = Project.all().to_json
   end
 end
