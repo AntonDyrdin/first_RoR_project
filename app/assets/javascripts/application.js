@@ -1,3 +1,7 @@
+//= require rails-ujs
+//= require turbolinks
+//= require_tree .
+
 $(document).ready(function(){
 	$(".todo_text").click(function(){
 		if($(".todo_text").val()=="Название задачи...")
