@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
 
     projectActiveRecord = Project.where(:title => poject)[0]
 
-	Todo.create(text: text, isCompleted: "false", project_id: projectActiveRecord.id)	
+	  Todo.create(text: text, isCompleted: "false", project_id: projectActiveRecord.id)	
   end
 
   def update
