@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def index
-  	@projects = Project.all
+  	@projects = Project.order('created_at').all
   end
 
   def create
@@ -25,6 +25,6 @@ class ProjectsController < ApplicationController
   def jsonarray
     response.headers["Content-Type"] = "application/json"
     response.content_type="application/json"
-    response.body = Project.all().to_json
+    response.body = Project.order('created_at DESC').all.to_json
   end
 end

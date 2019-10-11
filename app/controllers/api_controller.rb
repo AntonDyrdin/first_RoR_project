@@ -1,10 +1,10 @@
 class ApiController < ApplicationController
   def projects
-    render json: Project.all()
+    render json: Project.order('created_at').all
   end
 
   def todos
-    render json: Todo.all()
+    render json: Todo.order('created_at DESC').all
   end
 
   def todo
