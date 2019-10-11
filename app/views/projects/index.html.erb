@@ -3,8 +3,8 @@
 <% end %>
 
 
-<%= javascript_include_tag "jquery-3.4.1" %>
-<%= javascript_include_tag "application" %>
+<%= javascript_include_tag "jquery-3.4.1", skip_pipeline: true %>
+<%= javascript_include_tag "application", skip_pipeline: true %>
 
 <div class="heading">Задачи<img class="plus"src="addtodoicon.png"	align="right" rel="create-overlay" onclick="plusOnClick();"></div>
 
