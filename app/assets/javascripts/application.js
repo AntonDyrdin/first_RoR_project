@@ -1,6 +1,3 @@
-//= require rails-ujs
-//= require_tree
-//= require_self
 
 $(document).ready(function(){
 	$(".todo_text").click(function(){

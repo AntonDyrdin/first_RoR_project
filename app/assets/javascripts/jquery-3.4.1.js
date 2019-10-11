@@ -11,7 +11,6 @@
  *
  * Date: 2019-05-01T21:04Z
  */
- //= require_self
  
 ( function( global, factory ) {
 
