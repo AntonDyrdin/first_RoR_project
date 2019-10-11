@@ -15,14 +15,13 @@
  */
  
  @font-face {
-	font-family: 'OpenSans-Regular';
-    src: url('/assets/OpenSans-Regular.ttf') format("truetype");
+	font-family: 'Open Sans', sans-serif;
 	font-style: normal; 
 	font-weight: normal; 
 } 
 strong{
 	text-transform: uppercase;
-	font-family: 'OpenSans-Regular';
+	font-family: 'Open Sans', sans-serif;
 	display: block;
 }
 
@@ -31,7 +30,7 @@ strong{
 	background-color: #54AEDA;
 	text-align:center;
 	font-size: 30px;
-	font-family: 'OpenSans-Regular';
+	font-family: 'Open Sans', sans-serif;
 	padding: 30px;
 	margin-bottom: 30px;
 	display: block;
@@ -44,7 +43,7 @@ strong{
 
 .project_box{
 	font-size: 20px;
-	font-family: 'OpenSans-Regular';
+	font-family: 'Open Sans', sans-serif;
 	float: left;
 	width: 500px;
 	margin: 1em;
@@ -85,7 +84,7 @@ td {
 	border: 1px solid #B2B2B6;
 	color: #B2B2B6;
     font-size: 20px;
-	font-family: 'OpenSans-Regular';
+	font-family: 'Open Sans', sans-serif;
 }
 select{
 	display: inline-block;
@@ -96,13 +95,13 @@ select{
     border: 1px solid #B2B2B6;
 	color: #B2B2B6;
 	font-size: 20px;
-	font-family: 'OpenSans-Regular';
+	font-family: 'Open Sans', sans-serif;
 }
 
 option {
 	color: #43495A;
 	font-size: 20px;
-	font-family: 'OpenSans-Regular';
+	font-family: 'Open Sans', sans-serif;
 }
 #create-overlay{
  	background-color: white;
