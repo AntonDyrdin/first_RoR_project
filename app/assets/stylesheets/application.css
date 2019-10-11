@@ -16,7 +16,7 @@
  
  @font-face {
 	font-family: 'OpenSans';
-	src: font-url(OpenSans-Regular.ttf);
+	src: font-url("OpenSans-Regular.ttf");
 	font-style: normal; 
 	font-weight: normal; 
 } 
